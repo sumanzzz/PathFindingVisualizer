@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\pathfinding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\pathfinding.h" />

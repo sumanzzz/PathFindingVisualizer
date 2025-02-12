@@ -1,5 +1,5 @@
-#ifndef PATHFINDING.h
-#define PATHFINDING.h
+#ifndef PATHFINDING.H
+#define PATHFINDING.H
 
 #include<vector>
 #include<queue>

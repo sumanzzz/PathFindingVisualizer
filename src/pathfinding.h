@@ -1,33 +1,52 @@
-#ifndef PATHFINDING.H
-#define PATHFINDING.H
+#ifndef PATHFINDING_H
+#define PATHFINDING_H
 
-#include<vector>
-#include<queue>
-#include<set>
-#include<functional>
+#include <vector>
+#include <queue>
+#include <set>
+#include <functional>
 
-//defining point(x,y) for grid coordinates
+// Defining Point(x,y) for grid coordinates
 struct Point {
-	int x, y;
-	bool operator<(const Point& other)const {
-		return std::tie(x, y) < std::tie(other.x, other.y);
-	}
+    int x, y;
+
+    bool operator==(const Point& other) const {
+        return x == other.x && y == other.y;
+    }
+
+    bool operator<(const Point& other) const {
+        return std::tie(x, y) < std::tie(other.x, other.y);
+    }
 };
 
-//Node structure for A* Algorithm
+// Custom hash function for unordered_map
+namespace std {
+    template <>
+    struct hash<Point> {
+        size_t operator()(const Point& p) const noexcept {
+            return hash<int>()(p.x) ^ (hash<int>()(p.y) << 1);
+        }
+    };
+}
+
+// Node structure for A* Algorithm
 struct Node {
-	Point point;
-	int gCost;
-	int hCost;
-	int fCost() const {
-		return gCost + hCost;
-	}
-	bool operator>(const Node& other) const {
-		return fCost() > other.fCost();
-	}
+    Point point;
+    int gCost;
+    int hCost;
 
+    int fCost() const {
+        return gCost + hCost;
+    }
+
+    bool operator>(const Node& other) const {
+        return fCost() > other.fCost();
+    }
 };
-//pathfinding Function (A* algorithm)
-std::vector<Point>findPath(const Point& start, const Point& goal, const std::vector<std::vector<int>>& grid);
-#endif
+
+// Pathfinding function (A* algorithm)
+std::vector<Point> findPath(const Point& start, const Point& goal, const std::vector<std::vector<int>>& grid);
+
+#endif 
+
 
